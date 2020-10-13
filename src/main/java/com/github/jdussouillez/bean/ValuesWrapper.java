@@ -33,4 +33,9 @@ public class ValuesWrapper<T> {
         final ValuesWrapper<?> other = (ValuesWrapper<?>) obj;
         return Objects.equals(values, other.values);
     }
+
+    @Override
+    public String toString() {
+        return "ValuesWrapper{" + "values=" + values + '}';
+    }
 }

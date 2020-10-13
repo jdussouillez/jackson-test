@@ -9,7 +9,7 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.github.jdussouillez.bean.json.ImmutablePairJsonDeserializer;
 import com.github.jdussouillez.bean.json.MutablePairJsonDeserializer;
 import com.github.jdussouillez.bean.json.PairJsonSerializer;
-import lombok.EqualsAndHashCode;
+import java.util.Objects;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -62,21 +62,63 @@ public abstract class BaseTest {
         return module;
     }
 
-    @EqualsAndHashCode
     protected static class Entity {
 
         @Getter
         @Setter
         @JsonProperty
         protected String id;
+
+        @Override
+        public int hashCode() {
+            return Objects.hashCode(id);
+        }
+
+        @Override
+        public boolean equals(final Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null || getClass() != obj.getClass()) {
+                return false;
+            }
+            final Entity other = (Entity) obj;
+            return Objects.equals(id, other.id);
+        }
+
+        @Override
+        public String toString() {
+            return "Entity{" + "id=" + id + '}';
+        }
     }
 
-    @EqualsAndHashCode
     protected static class TestObj<P extends Pair<String, Entity>> {
 
         @Getter
         @Setter
         @JsonProperty
         protected P value;
+
+        @Override
+        public int hashCode() {
+            return Objects.hashCode(value);
+        }
+
+        @Override
+        public boolean equals(final Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null || getClass() != obj.getClass()) {
+                return false;
+            }
+            final TestObj<?> other = (TestObj<?>) obj;
+            return Objects.equals(value, other.value);
+        }
+
+        @Override
+        public String toString() {
+            return "TestObj{" + "value=" + value + '}';
+        }
     }
 }
