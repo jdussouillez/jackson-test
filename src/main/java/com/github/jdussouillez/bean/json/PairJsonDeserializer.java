@@ -66,10 +66,9 @@ public abstract class PairJsonDeserializer<P extends Pair<?, ?>>
             // return ctx.handleSecondaryContextualization(this, property, type);
         }
 
-        var deserializer = newInstance();
-        deserializer.leftValueType(type.containedType(0));
-        deserializer.rightValueType(type.containedType(1));
-        return deserializer;
+        return newInstance()
+            .leftValueType(type.containedType(0))
+            .rightValueType(type.containedType(1));
     }
 
     protected abstract PairJsonDeserializer<P> newInstance();
