@@ -30,8 +30,9 @@ public class ValuesWrapperDeserializer
         throws IOException {
         TreeNode root = jsonParser.readValueAsTree();
         List<?> nodes = new ArrayList<>();
+        ObjectMapper jsonMapper = (ObjectMapper) jsonParser.getCodec();
         for (int i = 0; i < root.size(); i++) {
-            nodes.add(ctx.readValue(root.get(i).traverse(jsonParser.getCodec()), valueType));
+            nodes.add(jsonMapper.convertValue(root.get(i), valueType));
         }
         return new ValuesWrapper<>(nodes);
     }
