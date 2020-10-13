@@ -9,6 +9,7 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.github.jdussouillez.bean.json.ImmutablePairJsonDeserializer;
 import com.github.jdussouillez.bean.json.MutablePairJsonDeserializer;
 import com.github.jdussouillez.bean.json.PairJsonSerializer;
+import com.github.jdussouillez.bean.json.ValuesWrapperDeserializer;
 import java.util.Objects;
 import lombok.Getter;
 import lombok.Setter;
@@ -59,6 +60,10 @@ public abstract class BaseTest {
         module.addDeserializer(Pair.class, new ImmutablePairJsonDeserializer()); // Default implementation = immutable
         module.addDeserializer(ImmutablePair.class, new ImmutablePairJsonDeserializer());
         module.addDeserializer(MutablePair.class, new MutablePairJsonDeserializer());
+
+        // If you remove this, the deserialization of a values wrapper containing pairs will fail
+        module.addDeserializer(ValuesWrapper.class, new ValuesWrapperDeserializer());
+
         return module;
     }
 
