@@ -55,16 +55,16 @@ public abstract class PairJsonDeserializer<P extends Pair<?, ?>>
         System.out.println(">> PairJsonDeserialize::createContextual - type = " + type
             + " (raw = " + type.getRawClass() + ")");
 
-        // Added this because it's called with the "List" type (see the ValuesWrapper class)
-        // Why is that necessary ?
-        if (!Pair.class.isAssignableFrom(type.getRawClass())) {
-            System.out.println(">> PairJsonDeserialize::createContextual - The type is not a Pair!");
-            return ctx.findRootValueDeserializer(type);
-            // return ctx.findContextualValueDeserializer(type, property);
-            // return ctx.findNonContextualValueDeserializer(type);
-            // return ctx.handlePrimaryContextualization(this, property, type);
-            // return ctx.handleSecondaryContextualization(this, property, type);
-        }
+        //        // Added this because it's called with the "List" type (see the ValuesWrapper class)
+        //        // Why is that necessary ?
+        //        if (!Pair.class.isAssignableFrom(type.getRawClass())) {
+        //            System.out.println(">> PairJsonDeserialize::createContextual - The type is not a Pair!");
+        //            return ctx.findRootValueDeserializer(type);
+        //            // return ctx.findContextualValueDeserializer(type, property);
+        //            // return ctx.findNonContextualValueDeserializer(type);
+        //            // return ctx.handlePrimaryContextualization(this, property, type);
+        //            // return ctx.handleSecondaryContextualization(this, property, type);
+        //        }
 
         return newInstance()
             .leftValueType(type.containedType(0))
